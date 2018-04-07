@@ -43,6 +43,18 @@ var resetButton, musicButton;
    }
  */
 
+function loadImages(){
+  backImage = loadImage("assets/img/back.png");
+  transitionImage1 = loadImage("assets/img/transitionImage1.png");
+  transitionImage2 = loadImage("assets/img/transitionImage2.png");
+  transitionImage3 = loadImage("assets/img/transitionImage3.png");
+  sunImage = loadImage("assets/img/sunImage.png");
+  moonImage = loadImage("assets/img/moonImage.png");
+  boltImage = loadImage("assets/img/boltImage.png");
+  cloudImage = loadImage("assets/img/cloudImage.png");
+  heartImage = loadImage("assets/img/heartImage.png");
+  smileyImage = loadImage("assets/img/smileyImage.png");
+}
 
 /*
  * function loadAnimations()
@@ -56,6 +68,14 @@ var resetButton, musicButton;
    }
  */
 
+function loadAnimations(){
+  sunAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,sunImage);
+  moonAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,moonImage);
+  boltAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,boltImage);
+  cloudAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,cloudImage);
+  heartAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,heartImage);
+  smileyAnimation = loadAnimation(backImage,transitionImage1,transitionImage2,transitionImage3,smileyImage);
+}
 
 /*
  * function loadSounds()
@@ -77,6 +97,10 @@ var resetButton, musicButton;
  * is essentially a "pre-setup" function. 
  */
 
+function preload(){
+  loadImages();
+  loadAnimations();
+}
 
 /*
  * function setup()
@@ -84,6 +108,20 @@ var resetButton, musicButton;
  * Therefore, assets are assumed to have been loaded and ready before this
  * function is called.
  */
+
+ function setup(){
+  gameScreen = createCanvas(790,370);
+  gameScreen.parent("#game-screen");
+  spriteWidth = 120;
+  spriteHeight = 168;
+  spriteX = 70;
+  spriteY = 95;
+  imageArray = (backImage,sunImage,moonImage,boltImage,transitionImage1,transitionImage2,transitionImage3);
+  resizeImages();
+  createSprites();
+  spriteArray = (sunSprite1,sunSprite2,moonSprite1,moonSprite2,boltSprite1,boltSprite2,cloudSprite1,cloudSprite2,heartSprite1,heartSprite2,smileySprite1,smileySprite2);
+ }
+
 
 
 /*
@@ -121,6 +159,11 @@ var resetButton, musicButton;
    image.resize(40, 50);
  */
 
+function resizeImages(){
+  for(var i = 0;i < imageArray.length;i++){
+    imageArray[i].resize(spriteWidth,spriteHeight);
+  }
+}
 
 /*
  * function createSprites()
@@ -135,6 +178,20 @@ var resetButton, musicButton;
    }
  */
 
+function createSprites(){
+  sunSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+  sunSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+  moonSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+  moonSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+  boltSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+  boltSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+  cloudSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+  cloudSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+  heartSprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+  heartSprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+  smileySprite1 = createSprite(0,0,spriteWidth,spriteHeight);
+  smileySprite2 = createSprite(0,0,spriteWidth,spriteHeight);
+}
 
 /*
  * function addAnimations()
@@ -145,6 +202,16 @@ var resetButton, musicButton;
  * function calls activateSprite(s) with each sprite as input.
  */
 
+function addAnimation(){
+  var animations = [sunAnimation, sunAmination, moonAnimation, moonAnimation, boltAnimation, boltAnimation, cloudAnimation, cloudAnimation, smileyAnimation, smileyAnimation, heartAnimation, heartAnimation];
+  for (var i = 0;i < spriteArray.length; i++) {
+    spriteArray[i].addAnimation("flip",animations[i]);
+    spriteArray[i].animation.frameDelay = 10;
+    spriteArray[i].animation.looping = false;
+    spriteArray[i].animation.playing = false;
+    //activateSprite(spriteArray[i]);
+  }
+}
 
 /*
  * function placeSprites()
